@@ -4,7 +4,7 @@
 {% block content %}
     <u1>
         {% for recipe in recipes %}
-            <li><a href="{{ recipe.link }}">{{ recipe.name }}</a></li>
+            <li><a href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></li>
         {% endfor %}
     </u1>
 {% endblock %}
