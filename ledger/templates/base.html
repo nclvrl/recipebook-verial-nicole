@@ -3,9 +3,22 @@
     <head>
         <title>{% block title %}Recipe Book{% endblock %}</title>
     </head>
-    <body>
+    <body>     
         <div id="content">
             <h3>Recipe Book</h3>
+
+            {% if user.is_authenticated %}
+                <form method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+            {% elif request.path != "/accounts/login/" %}
+                <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+            
+            {% if request.path != "/accounts/login/" %}
+                <br>
+            {% endif %}
             {% block content %}{% endblock %}
         </div>
     </body>
