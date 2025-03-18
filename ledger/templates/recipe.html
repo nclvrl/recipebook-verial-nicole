@@ -3,10 +3,12 @@
 
 {% block content %}
     <u1>
-        <body><b>{{ recipe.name }}</b></body>
+        <body><b>{{ recipe.name }} by {{ recipe.author }}</b></body>
         <br><body>Ingredients</body>
         {% for ingredient in recipe.ingredients.all %}
             <li>{{ ingredient.quantity }} {{ ingredient.ingredient.name }}</li>
+        {% empty %}
+            <p>No ingredients listed.</p>
         {% endfor %}
     </u1>
 {% endblock %}
