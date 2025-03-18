@@ -1,12 +1,13 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth.models import User
 from .models import *
 
 class ProfileInline(admin.StackedInline):
     model = Profile
     can_delete = False
 
-class UserAdmin(admin.BaseUserAdmin):
+class UserAdmin(BaseUserAdmin):
     inlines = [ProfileInline]
 
 class RecipeIngredientInline(admin.TabularInline):
