@@ -20,8 +20,8 @@ class IngredientAdmin(admin.ModelAdmin):
 
 class RecipeAdmin(admin.ModelAdmin):
     model = Recipe
-    list_display = ('name',)
-    search_fields = ('name',)
+    list_display = ('name', 'author', 'created_on', 'updated_on')
+    search_fields = ('name', 'author', 'created_on', 'updated_on')
     inlines = [RecipeIngredientInline]
 
 class RecipeIngredientAdmin(admin.ModelAdmin):
