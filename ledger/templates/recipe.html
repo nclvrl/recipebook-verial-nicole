@@ -10,6 +10,7 @@
         {% empty %}
             <p>No ingredients listed.</p>
         {% endfor %}
+        <a href="/recipe/{{ recipe.pk }}/add_image">Add Image</a>
     </u1>
 
     {% for image in recipe.image.all %}
