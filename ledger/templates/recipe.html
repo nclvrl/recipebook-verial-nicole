@@ -11,4 +11,10 @@
             <p>No ingredients listed.</p>
         {% endfor %}
     </u1>
+
+    {% for image in recipe.image.all %}
+    <div>
+        <img src="{{ image.image.url }}" alt="{{ image.description }}">
+    </div>
+    {% endfor %}
 {% endblock %}
