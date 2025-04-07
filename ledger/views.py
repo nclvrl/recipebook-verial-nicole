@@ -17,6 +17,42 @@ class RecipeDetail(LoginRequiredMixin, DetailView):
     redirect_field_name = "accounts/login"
 
 @login_required
+def add_recipe(request):
+    if request.method == "POST":
+        form = RecipeForm(request.POST)
+        if form.is_valid():
+            recipe = form.save(commit=False)
+            recipe.author = request.user.profile
+            recipe.save()
+            return redirect(f"/recipe/{recipe.pk}/", pk=recipe.pk)
+    else:
+        recipe_form = RecipeForm()
+    return render(request, 'add_recipe.html', {'recipe_form': recipe_form})
+
+@login_required
+def add_ingredient(request, pk):
+    recipe = get_object_or_404(Recipe, pk=pk)
+    if request.method == "POST":
+        ingredient_form = IngredientForm(request.POST)
+        recipe_ingredient_form = RecipeIngredientForm(request.POST)
+        if 'submit_ingredient' in request.POST and ingredient_form.is_valid():
+            ingredient_form.save()
+            return redirect(f"/recipe/{recipe.pk}/add_ingredient/", pk=recipe.pk)
+        if 'submit_recipeingredient' in request.POST and recipe_ingredient_form.is_valid():
+            recipe_ingredient = recipe_ingredient_form.save(commit=False)
+            recipe_ingredient.recipe = recipe
+            recipe_ingredient.save()
+            return redirect(f"/recipe/{recipe.pk}/", pk=recipe.pk)
+    else:
+        ingredient_form = IngredientForm()
+        recipe_ingredient_form = RecipeIngredientForm()
+    return render(request, 'add_ingredient.html', {
+        'ingredient_form': ingredient_form,
+        'recipe_ingredient_form': recipe_ingredient_form,
+        'recipe': recipe,
+    })
+
+@login_required
 def add_image(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk) 
     if request.method == "POST":
