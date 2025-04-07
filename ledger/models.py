@@ -2,7 +2,6 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 
-# Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
@@ -36,3 +35,8 @@ class RecipeIngredient(models.Model):
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, related_name='recipe')
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name='ingredients')
     quantity = models.CharField(max_length=255)                           
+
+class RecipeImage(models.Model):
+    image = models.ImageField(upload_to='images/', null=True)
+    description = models.TextField(max_length=255)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, related_name="image")

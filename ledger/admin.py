@@ -13,6 +13,9 @@ class UserAdmin(BaseUserAdmin):
 class RecipeIngredientInline(admin.TabularInline):
     model = RecipeIngredient
 
+class RecipeImageInline(admin.TabularInline):
+    model = RecipeImage
+
 class IngredientAdmin(admin.ModelAdmin):
     model = Ingredient
     list_display = ('name',)
@@ -22,7 +25,7 @@ class RecipeAdmin(admin.ModelAdmin):
     model = Recipe
     list_display = ('name', 'author', 'created_on', 'updated_on')
     search_fields = ('name', 'author', 'created_on', 'updated_on')
-    inlines = [RecipeIngredientInline]
+    inlines = [RecipeIngredientInline, RecipeImageInline]
 
 class RecipeIngredientAdmin(admin.ModelAdmin):
     model = RecipeIngredient

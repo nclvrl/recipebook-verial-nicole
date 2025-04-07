@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <h3>Upload a new image for "{{ recipe.name }}"</h3>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ image_form.as_p }}
+        <button type="submit">Upload Image</button>
+    </form>
+    <br>
+    <a href="/recipe/{{ recipe.pk }}">Back to Recipe</a>
+{% endblock %}
